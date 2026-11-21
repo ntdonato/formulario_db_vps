@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição - Semana Acadêmica de Tecnologia e Inovação</title>
+    <link rel="stylesheet" href="estilo.css">
+    <!-- defer: o script só roda depois que o HTML terminou de carregar -->
+    <script src="js/formulario.js" defer></script>
+</head>
+<body>
+
+    <header class="topo">
+        <h1>Semana Acadêmica de Tecnologia e Inovação</h1>
+        <p>Preencha o formulário abaixo para realizar sua inscrição no evento.</p>
+        <nav>
+            <a href="/">Início</a>
+            <a href="inscricao.html" aria-current="page">Inscrição</a>
+            <a href="privacidade.html">Privacidade</a>
+        </nav>
+    </header>
+
+    <main class="cartao">
+        <!-- Agora o formulário ENVIA de verdade: POST para a rota /inscricoes do servidor -->
+        <form action="/inscricoes" method="post">
+
+            <fieldset>
+                <legend>A. Dados pessoais</legend>
+
+                <div class="campo">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" autocomplete="name"
+                        required minlength="3" maxlength="120">
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                </div>
+
+                <div class="campo">
+                    <label for="nascimento">Data de nascimento</label>
+                    <input type="date" id="nascimento" name="nascimento" autocomplete="bday">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>B. Informações acadêmicas</legend>
+
+                <div class="campo">
+                    <label for="curso">Curso</label>
+                    <!-- As opções abaixo são substituídas pelas do banco via js/formulario.js -->
+                    <select id="curso" name="curso" required>
+                        <option value="">Selecione seu curso</option>
+                        <option value="ads">Tecnologia em Análise e Desenvolvimento de Sistemas</option>
+                        <option value="informatica">Técnico em Informática para Internet</option>
+                        <option value="administracao">Técnico em Administração</option>
+                        <option value="agropecuaria">Técnico em Agropecuária</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <!-- Grupo de radio dentro do próprio fieldset: o leitor de tela anuncia a pergunta -->
+                <fieldset class="grupo">
+                    <legend>Semestre atual</legend>
+                    <div class="opcao">
+                        <input type="radio" id="sem1" name="semestre" value="1" required>
+                        <label for="sem1">1º semestre</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="radio" id="sem2" name="semestre" value="2">
+                        <label for="sem2">2º semestre</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="radio" id="sem3" name="semestre" value="3">
+                        <label for="sem3">3º semestre</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="radio" id="sem4" name="semestre" value="4">
+                        <label for="sem4">4º semestre</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="radio" id="sem5" name="semestre" value="5">
+                        <label for="sem5">5º semestre ou superior</label>
+                    </div>
+                </fieldset>
+            </fieldset>
+
+            <fieldset>
+                <legend>C. Participação no evento</legend>
+
+                <fieldset class="grupo" id="grupo-atividades">
+                    <legend>Atividades de interesse</legend>
+                    <div class="opcao">
+                        <input type="checkbox" id="atividade-palestras" name="atividades" value="palestras">
+                        <label for="atividade-palestras">Palestras</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="checkbox" id="atividade-minicursos" name="atividades" value="minicursos">
+                        <label for="atividade-minicursos">Minicursos</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="checkbox" id="atividade-oficinas" name="atividades" value="oficinas">
+                        <label for="atividade-oficinas">Oficinas práticas</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="checkbox" id="atividade-projetos" name="atividades" value="projetos">
+                        <label for="atividade-projetos">Apresentação de projetos</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="checkbox" id="atividade-mesas-redondas" name="atividades" value="mesas-redondas">
+                        <label for="atividade-mesas-redondas">Mesas-redondas</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="grupo">
+                    <legend>Modalidade de participação</legend>
+                    <div class="opcao">
+                        <input type="radio" id="presencial" name="modalidade" value="presencial" required>
+                        <label for="presencial">Presencial</label>
+                    </div>
+                    <div class="opcao">
+                        <input type="radio" id="online" name="modalidade" value="online">
+                        <label for="online">On-line</label>
+                    </div>
+                </fieldset>
+
+                <div class="campo">
+                    <label for="comentarios">Comentários ou sugestões</label>
+                    <textarea id="comentarios" name="comentarios" rows="5" maxlength="1000"
+                        placeholder="Conte suas expectativas em relação ao evento"></textarea>
+                </div>
+            </fieldset>
+
+            <!-- LGPD: consentimento explícito, nunca marcado por padrão -->
+            <div class="opcao consentimento">
+                <input type="checkbox" id="consentimento" name="consentimento" value="sim" required>
+                <label for="consentimento">
+                    Li e concordo com a <a href="privacidade.html" target="_blank" rel="noopener">política de privacidade</a>
+                    e autorizo o uso dos meus dados para a organização do evento.
+                </label>
+            </div>
+
+            <div class="acoes">
+                <button type="submit" class="botao-principal">Enviar inscrição</button>
+                <button type="reset">Limpar campos</button>
+            </div>
+
+        </form>
+    </main>
+
+</body>
+</html>

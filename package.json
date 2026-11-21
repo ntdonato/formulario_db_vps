@@ -1,0 +1,19 @@
+{
+  "name": "formulario-db-vps",
+  "version": "1.0.0",
+  "description": "Formulário de inscrição da Semana Acadêmica com Node.js + SQLite, pronto para publicar em VPS",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file-if-exists=.env servidor.js",
+    "dev": "node --env-file-if-exists=.env --watch servidor.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.5",
+    "helmet": "^8.3.0"
+  }
+}

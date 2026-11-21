@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área administrativa - Semana Acadêmica de Tecnologia e Inovação</title>
+    <link rel="stylesheet" href="/estilo.css">
+    <script src="/admin/js/lista.js" defer></script>
+</head>
+<body>
+
+    <header class="topo">
+        <h1>Área administrativa</h1>
+        <p>Semana Acadêmica de Tecnologia e Inovação</p>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/inscricao.html">Inscrição</a>
+            <a href="/admin/" aria-current="page">Inscritos</a>
+        </nav>
+    </header>
+
+    <main class="cartao largo">
+
+        <form id="form-busca" role="search" class="busca">
+            <label for="busca">Buscar por nome ou e-mail</label>
+            <input type="search" id="busca" name="busca">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <!-- aria-live: leitores de tela anunciam quando este texto muda -->
+        <p id="aviso" aria-live="polite">Carregando...</p>
+
+        <div class="rolagem">
+            <table id="tabela-inscricoes">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Semestre</th>
+                        <th scope="col">Modalidade</th>
+                        <th scope="col">Atividades</th>
+                        <th scope="col">Inscrito em</th>
+                        <th scope="col"><span class="visualmente-oculto">Ações</span></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <section id="relatorio" aria-labelledby="titulo-relatorio">
+            <h2 id="titulo-relatorio">Relatório</h2>
+            <div id="conteudo-relatorio"><p>Carregando...</p></div>
+        </section>
+
+    </main>
+
+</body>
+</html>

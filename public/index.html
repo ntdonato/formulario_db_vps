@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana Acadêmica de Tecnologia e Inovação — Inscrições</title>
+    <meta name="description" content="Projeto de estudo: formulário de inscrição em HTML, CSS, JavaScript, Node.js e SQLite, publicado em uma VPS.">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <header class="topo">
+        <h1>Semana Acadêmica de Tecnologia e Inovação</h1>
+        <p>Sistema de inscrições — um projeto de estudo de desenvolvimento web</p>
+        <nav>
+            <a href="/" aria-current="page">Início</a>
+            <a href="inscricao.html">Inscrição</a>
+            <a href="privacidade.html">Privacidade</a>
+        </nav>
+    </header>
+
+    <main class="cartao largo pagina-inicial">
+
+        <section class="destaque">
+            <h2>Inscrições abertas</h2>
+            <p>Palestras, minicursos, oficinas práticas, apresentação de projetos e mesas-redondas,
+               no formato presencial ou on-line.</p>
+            <p><a class="botao-link" href="inscricao.html">Fazer minha inscrição</a></p>
+        </section>
+
+        <section>
+            <h2>Sobre o projeto</h2>
+            <p>Este site nasceu de uma atividade da disciplina de <strong>Introdução ao Desenvolvimento Web</strong>:
+               construir, só com HTML, o formulário de inscrição de um evento acadêmico. A partir daí, o projeto
+               evoluiu em etapas até virar um sistema completo, que recebe, valida e guarda as inscrições
+               em um banco de dados e está publicado na internet.</p>
+        </section>
+
+        <section>
+            <h2>Como ele evoluiu</h2>
+            <ol class="linha-do-tempo">
+                <li><strong>HTML puro</strong> — o formulário da atividade: campos certos para cada dado e
+                    rótulos (<code>label</code>) ligados a cada campo.</li>
+                <li><strong>CSS e acessibilidade</strong> — visual, versão para celular, tema escuro e grupos de opções
+                    anunciados corretamente por leitores de tela.</li>
+                <li><strong>Servidor Node.js</strong> — o formulário passa a enviar os dados de verdade (POST).</li>
+                <li><strong>Arquivo JSON</strong> — primeira forma de guardar os dados, para entender o fluxo e sentir
+                    os limites de viver sem banco.</li>
+                <li><strong>Banco SQLite e SQL</strong> — tabelas relacionadas, chaves, restrições, transações e relatórios.</li>
+                <li><strong>Publicação em VPS</strong> — Nginx, HTTPS, PM2, backups, área administrativa protegida e LGPD.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Como funciona por dentro</h2>
+            <div class="fluxo" role="img"
+                 aria-label="Fluxo: navegador, Nginx com HTTPS, servidor Node.js e banco SQLite">
+                <div class="fluxo-etapa"><strong>Navegador</strong><span>HTML, CSS e JavaScript</span></div>
+                <div class="fluxo-seta" aria-hidden="true">→</div>
+                <div class="fluxo-etapa"><strong>Nginx</strong><span>HTTPS e proxy</span></div>
+                <div class="fluxo-seta" aria-hidden="true">→</div>
+                <div class="fluxo-etapa"><strong>Node.js + Express</strong><span>rotas e validação</span></div>
+                <div class="fluxo-seta" aria-hidden="true">→</div>
+                <div class="fluxo-etapa"><strong>SQLite</strong><span>4 tabelas relacionadas</span></div>
+            </div>
+            <p>Quando você envia o formulário, o navegador faz uma requisição <code>POST</code> protegida por HTTPS.
+               O Nginx recebe e repassa ao servidor Node.js, que <strong>valida tudo de novo</strong>
+               (nunca confia só no navegador) e grava a inscrição numa <strong>transação</strong>:
+               ou a inscrição e suas atividades são salvas juntas, ou nada é salvo.</p>
+        </section>
+
+        <section>
+            <h2>Tecnologias</h2>
+            <ul class="etiquetas">
+                <li>HTML5 semântico</li>
+                <li>CSS (variáveis, tema escuro)</li>
+                <li>JavaScript</li>
+                <li>Node.js</li>
+                <li>Express</li>
+                <li>SQLite / SQL</li>
+                <li>Nginx</li>
+                <li>PM2</li>
+                <li>Let's Encrypt (HTTPS)</li>
+                <li>Ubuntu (VPS)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Boas práticas aplicadas</h2>
+            <div class="grade-cartoes">
+                <div>
+                    <h3>Segurança</h3>
+                    <ul>
+                        <li>Consultas SQL parametrizadas (contra <em>SQL injection</em>)</li>
+                        <li>Dados exibidos como texto (contra <em>XSS</em>)</li>
+                        <li>Limite de envios por IP contra robôs</li>
+                        <li>Cabeçalhos de segurança e HTTPS</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Dados</h3>
+                    <ul>
+                        <li>Validação no navegador <strong>e</strong> no servidor</li>
+                        <li>Restrições no próprio banco (<code>UNIQUE</code>, <code>CHECK</code>, chaves estrangeiras)</li>
+                        <li>Transações: nada fica salvo pela metade</li>
+                        <li>Backups diários automáticos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Pessoas</h3>
+                    <ul>
+                        <li>Acessível por teclado e leitor de tela</li>
+                        <li>Funciona bem no celular</li>
+                        <li>Consentimento e política de privacidade (LGPD)</li>
+                        <li>Lista de inscritos só para administradores</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="rodape">
+        <p>Projeto de estudo — Introdução ao Desenvolvimento Web · <a href="privacidade.html">Política de privacidade</a></p>
+    </footer>
+
+</body>
+</html>
