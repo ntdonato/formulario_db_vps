@@ -1,0 +1,46 @@
+# Deploy automático do formulário: a cada push na main, envia o código para a VPS,
+# instala as dependências e reinicia o Node no PM2.
+# O .env, o banco (/var/lib/formulario) e o node_modules NUNCA são tocados.
+# Secrets necessários (Settings → Secrets and variables → Actions):
+#   VPS_HOST         IP da VPS
+#   VPS_USER         usuário (deploy)
+#   VPS_SSH_KEY      chave privada SÓ do GitHub Actions (sem passphrase)
+#   VPS_KNOWN_HOSTS  saída de: ssh-keyscan -t ed25519 <IP>
+name: Deploy na VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          echo "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Enviar arquivos
+        # Itens em --exclude não são enviados NEM apagados na VPS (por isso o .env fica seguro)
+        run: |
+          rsync -az --delete \
+            --exclude '.git/' --exclude '.github/' \
+            --exclude '.env' --exclude 'node_modules/' \
+            --exclude '*.db' --exclude '*.db-*' --exclude 'backups/' --exclude 'erro/' \
+            -e "ssh -i ~/.ssh/id_deploy" \
+            ./ "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/formulario/"
+
+      - name: Instalar dependências e reiniciar
+        run: |
+          ssh -i ~/.ssh/id_deploy "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+            'set -e; cd /var/www/formulario; npm ci --omit=dev; pm2 restart formulario; sleep 2; curl -fsS http://127.0.0.1:3000/saude'
